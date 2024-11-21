@@ -1,0 +1,5 @@
+Bot events
+
+app_mention - If a message is posted in a channel while mentioning the bot, the app will respond
+message.channel event - If a message is posted to a channel (Even if the app is not mentioned), the app will respond.
+The app will only respond if we provide a functionality for message event in the code. Otherwise will give an error
