@@ -28,9 +28,19 @@ def get_bot_user_id():
 def handle_mention_event(payload, say):
     print("payload from mention event")
     print(payload)
+    if payload.get("files") is not None:
+        files = payload["files"]
+        file_urls = []
+        for file in files:
+            file_url = file["url_private"]
+            file_urls.append(file_url)
+        print(file_urls)
     channel = payload["channel"]
     user = payload["user"]
-    say(f"Hi {user} from {channel}. Messaging from mention event")
+    prompt = payload["text"]
+    profile = slack_app.client.users_profile_get(user = user, include_labels = False)
+    user_name = profile["profile"]["real_name"]
+    say(f"Hi {user_name} from {channel}. Messaging from mention event. Thanks for the following message {prompt}")
 
 @slack_app.event("message")
 def handle_message_event(payload, say):
@@ -39,6 +49,17 @@ def handle_message_event(payload, say):
     channel = payload["channel"]
     user = payload["user"]
     say(f"Hi {user} from {channel}. Messaging from message event")
+
+@slack_app.message("boo")
+def handle_messages(message, say):
+    say(f"Ahhhhhhhh. Dont scare me with {message}")
+
+@slack_app.command("/upload")
+def upload_command(ack, payload, logger):
+    slack_app.client.files_list()
+    ack()
+    print(payload)
+    logger.info(payload)
 
 @flask_app.route("/slack/events", methods = ["POST"])
 def handle_slack():

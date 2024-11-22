@@ -1,5 +1,10 @@
 Bot events
 
 app_mention - If a message is posted in a channel while mentioning the bot, the app will respond
-message.channel event - If a message is posted to a channel (Even if the app is not mentioned), the app will respond.
-The app will only respond if we provide a functionality for message event in the code. Otherwise will give an error
+message.channel event - If a message is posted to a channel (Even if the app is not mentioned), the app will respond. The app will only respond if we provide a functionality for message event in the code. Otherwise will give an error
+
+Bot token scopes - Determines the capabilities of the slack app
+User token scopes - For the slack app to be able to access users information
+
+https://tools.slack.dev/bolt-python/api-docs/slack_bolt/kwargs_injection/args.html#slack_bolt.kwargs_injection.args.Args.complete - Contains all the listener arguments to be used in the functions related to slack
+https://api.slack.com/scopes - Contains all the permission scopes and their usage for user and bot
